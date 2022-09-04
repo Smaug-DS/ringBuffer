@@ -8,7 +8,8 @@
 #include <iostream>
 
 template <typename T>
-class circularBuffer {
+class circularBuffer
+        {
 
 public:
 
@@ -34,7 +35,8 @@ public:
 };
 
 template<typename T>
-void circularBuffer<T>::print() {
+void circularBuffer<T>::print()
+{
     T* tmp = buf->start;
     while(tmp != buf->end)
     {
@@ -44,7 +46,8 @@ void circularBuffer<T>::print() {
 }
 
 template<typename T>
-void circularBuffer<T>::push(const T &elem) {
+void circularBuffer<T>::push(const T &elem)
+{
     if (buf == NULL) {std::cout << "buff is NULL";}
 
     *(buf->currentPtr) = elem;
@@ -57,7 +60,8 @@ void circularBuffer<T>::push(const T &elem) {
 }
 
 template<typename T>
-circularBuffer<T>::circularBuffer(const int &capacity) {
+circularBuffer<T>::circularBuffer(const int &capacity)
+{
 
     T* mem = static_cast<T *>(malloc(capacity * sizeof(T)));
 
@@ -75,7 +79,8 @@ circularBuffer<T>::circularBuffer(const int &capacity) {
 }
 
 template<typename T>
-circularBuffer<T>::~circularBuffer() {
+circularBuffer<T>::~circularBuffer()
+{
     if (buf == NULL) {return;}
 
     free(buf->start);
