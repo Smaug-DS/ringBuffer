@@ -21,59 +21,67 @@ public:
 
     element* buf;
 
-    circularBuffer(const int& capacity)
-    {
+    explicit circularBuffer(const int& capacity);
 
-        T* mem = static_cast<T *>(malloc(capacity * sizeof(T)));
-
-        if (mem == NULL) {std::cout << "buff is NULL";}
-
-        buf = static_cast<element *>(malloc(sizeof(element)));
-
-        if (buf == NULL) {free(mem); std::cout << "buff is NULL";;}
-
-
-        buf->start = mem;
-        buf->end = mem + capacity;
-        buf->currentPtr = mem;
-
-    }
-
-    ~circularBuffer()
-    {
-        if (buf == NULL) {return;}
-
-        free(buf->start);
-
-        free(buf);
-    }
+    ~circularBuffer();
 
 public:
 
-    void push(const T & elem)
-    {
-        if (buf == NULL) {std::cout << "buff is NULL";}
+    void push(const T & elem);
 
-        *(buf->currentPtr) = elem;
-
-        T *tmp = buf->currentPtr + 1;
-
-        if (tmp >= buf->end) {tmp = buf->start;}
-
-        buf->currentPtr = tmp;
-    }
-
-    void print()
-    {
-        T* tmp = buf->start;
-        while(tmp != buf->end)
-        {
-            std::cout << *tmp;
-            tmp += 1;
-        }
-    }
+    void print();
 
 };
+
+template<typename T>
+void circularBuffer<T>::print() {
+    T* tmp = buf->start;
+    while(tmp != buf->end)
+    {
+        std::cout << *tmp;
+        tmp += 1;
+    }
+}
+
+template<typename T>
+void circularBuffer<T>::push(const T &elem) {
+    if (buf == NULL) {std::cout << "buff is NULL";}
+
+    *(buf->currentPtr) = elem;
+
+    T *tmp = buf->currentPtr + 1;
+
+    if (tmp >= buf->end) {tmp = buf->start;}
+
+    buf->currentPtr = tmp;
+}
+
+template<typename T>
+circularBuffer<T>::circularBuffer(const int &capacity) {
+
+    T* mem = static_cast<T *>(malloc(capacity * sizeof(T)));
+
+    if (mem == NULL) {std::cout << "buff is NULL";}
+
+    buf = static_cast<element *>(malloc(sizeof(element)));
+
+    if (buf == NULL) {free(mem); std::cout << "buff is NULL";;}
+
+
+    buf->start = mem;
+    buf->end = mem + capacity;
+    buf->currentPtr = mem;
+
+}
+
+template<typename T>
+circularBuffer<T>::~circularBuffer() {
+    if (buf == NULL) {return;}
+
+    free(buf->start);
+
+    free(buf);
+}
 
 
 #endif //CIRCULARBUFFER_CIRCULARBUFFER_H
