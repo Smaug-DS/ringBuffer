@@ -21,7 +21,7 @@ public:
 
     element* buf;
 
-    circularBuffer(int capacity)
+    circularBuffer(const int& capacity)
     {
 
         T* mem = static_cast<T *>(malloc(capacity * sizeof(T)));
@@ -50,7 +50,7 @@ public:
 
 public:
 
-    void push(T elem)
+    void push(const T & elem)
     {
         if (buf == NULL) {std::cout << "buff is NULL";}
 
